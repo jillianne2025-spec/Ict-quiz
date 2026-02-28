@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ICT Quiz</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #fdf6e3;
+        padding: 20px;
+    }
+    .container {
+        max-width: 1000px;
+        margin: auto;
+        background-color: #fff8dc;
+        padding: 400px;
+        border: 5px solid #deb887;
+        border-radius: 30px;
+    }
+    h2 {
+        font-size: 100px;
+        margin-bottom: 20px;
+    }
+    button {
+        width: 100%;
+        padding: 15px;
+        font-size: 25px;
+        margin: 10px 0;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        background-color: #ffe4b5;
+    }
+    button.correct { background-color: #4CAF50; color: white; }
+    button.wrong { background-color: #f44336; color: white; }
+    .score { margin-top: 20px; font-size: 25px; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2 id="question">Question here</h2>
+    <div id="choices">
+        <button id="a" onclick="checkAnswer('a')">A</button>
+        <button id="b" onclick="checkAnswer('b')">B</button>
+        <button id="c" onclick="checkAnswer('c')">C</button>
+        <button id="d" onclick="checkAnswer('d')">D</button>
+    </div>
+    <div class="score" id="score">Score: 0</div>
+</div>
+
+<script>
+const questions = [
+    {q:"1. What does CPU stand for?", a:"Central Process Unit", b:"Central Processing Unit", c:"Computer Processing Unit", d:"Central Processor Unit", ans:"b"},
+    {q:"2. Which device is used to input data?", a:"Monitor", b:"Printer", c:"Keyboard", d:"Speaker", ans:"c"},
+    {q:"3. Shortcut for copy?", a:"Ctrl + X", b:"Ctrl + C", c:"Ctrl + V", d:"Ctrl + Z", ans:"b"},
+    {q:"4. Which storage is volatile?", a:"RAM", b:"Hard Disk", c:"SSD", d:"Flash Drive", ans:"a"},
+    {q:"5. What does URL stand for?", a:"Uniform Resource Locator", b:"Universal Resource Link", c:"Uniform Readable Link", d:"Universal Readable Locator", ans:"a"},
+    {q:"6. Main function of OS?", a:"Run Applications", b:"Manage Hardware & Software", c:"Edit Documents", d:"Store Files", ans:"b"},
+    {q:"7. Output device?", a:"Mouse", b:"Keyboard", c:"Printer", d:"Scanner", ans:"c"},
+    {q:"8. Used to browse internet?", a:"Word Processor", b:"Browser", c:"Spreadsheet", d:"Email Client", ans:"b"},
+    {q:"9. Python file extension?", a:".py", b:".java", c:".txt", d:".exe", ans:"a"},
+    {q:"10. Function of a router?", a:"Connect to Internet", b:"Store Files", c:"Display Output", d:"Process Data", ans:"a"}
+];
+
+let current = 0;
+let score = 0;
+
+function showQuestion() {
+    if(current >= questions.length){
+        document.getElementById("question").innerText = "Quiz Finished! Your Score: " + score + "/" + questions.length;
+        document.getElementById("choices").style.display = "none";
+        return;
+    }
+    let q = questions[current];
+    document.getElementById("question").innerText = q.q;
+    document.getElementById("a").innerText = "A. " + q.a; document.getElementById("a").className = "";
+    document.getElementById("b").innerText = "B. " + q.b; document.getElementById("b").className = "";
+    document.getElementById("c").innerText = "C. " + q.c; document.getElementById("c").className = "";
+    document.getElementById("d").innerText = "D. " + q.d; document.getElementById("d").className = "";
+}
+
+function checkAnswer(choice){
+    let correct = questions[current].ans;
+    if(choice === correct){
+        document.getElementById(choice).className = "correct";
+        score++;
+    } else {
+        document.getElementById(choice).className = "wrong";
+        document.getElementById(correct).className = "correct";
+    }
+    document.getElementById("score").innerText = "Score: " + score;
+    current++;
+    setTimeout(showQuestion, 1000);
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>
